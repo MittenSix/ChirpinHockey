@@ -1,0 +1,14 @@
+{
+  "extends": "../tsconfig.json",     // reuse your project defaults
+  "compilerOptions": {
+    "rootDir": "./",                 // everything in /server
+    "outDir": "../dist/functions",   // Netlify Functions output
+    "module": "NodeNext",
+    "target": "ES2022",
+    "moduleResolution": "NodeNext",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "noEmit": false
+  },
+  "include": ["**/*.ts", "**/*.tsx"]
+}
