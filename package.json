@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "NODE_ENV=development tsx server/index.ts",
-    "build": "vite build --config vite.config.netlify.ts && npm run build:functions",
+   "build": "vite build && npm run build:functions",
     "build:functions": "esbuild server/netlify-functions.ts --platform=node --packages=external --bundle --format=esm --outdir=dist --outfile=dist/api.js",
     "start": "NODE_ENV=production node dist/index.js",
     "check": "tsc",
