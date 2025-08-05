@@ -1,5 +1,9 @@
 {
-  "extends": "../tsconfig.json",     // reuse your project defaults
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    // other options …
+    "allowImportingTsExtensions": false
+  }
   "compilerOptions": {
     "rootDir": "./",                 // everything in /server
     "outDir": "../dist/functions",   // Netlify Functions output
