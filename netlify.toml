@@ -6,11 +6,34 @@
 [functions]
   node_bundler = "esbuild"
 
+# API → Function mappings
+[[redirects]]
+  from   = "/api/contact"
+  to     = "/.netlify/functions/contact"
+  status = 200
+  force  = true
+
+[[redirects]]
+  from   = "/api/waitlist"
+  to     = "/.netlify/functions/waitlist"
+  status = 200
+  force  = true
+
+[[redirects]]
+  from   = "/api/waitlist/count"
+  to     = "/.netlify/functions/waitlist-count"
+  status = 200
+  force  = true
+
+# (optional) remove or keep as needed
+[[redirects]]
+  from   = "/api/debug/airtable"
+  to     = "/.netlify/functions/debug-airtable"
+  status = 200
+  force  = true
+
+# SPA fallback (keep at bottom)
 [[redirects]]
   from   = "/*"
   to     = "/index.html"
   status = 200
-
-[build.environment]
-  NODE_ENV    = "development"   # ensures devDeps install on Netlify
-  NODE_VERSION = "20"
