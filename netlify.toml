@@ -18,3 +18,7 @@
   from = "/*"
   to   = "/index.html"
   status = 200
+
+[build.environment]
+  NODE_ENV = "development"   # ensures npm includes devDependencies
+  NODE_VERSION = "20"        # stick to current LTS instead of Node 22
