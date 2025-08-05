@@ -1,24 +1,16 @@
-# ─────────────────────────────────────────
-#  Netlify configuration for Chirpin
-# ─────────────────────────────────────────
-
 [build]
-  # 1️⃣ Compile React + Tailwind + TypeScript
-  # 2️⃣ Transpile Express API code into Netlify Functions
   command   = "npm run build"
-  publish   = "dist/public"     # static SPA bundle
-  functions = "dist/functions"  # serverless functions output
+  publish   = "dist/public"
+  functions = "dist/functions"
 
 [functions]
-  # Esbuild keeps lambda bundles small and fast
   node_bundler = "esbuild"
 
 [[redirects]]
-  # SPA fallback so client-side routing works on refresh / deep links
-  from = "/*"
-  to   = "/index.html"
+  from   = "/*"
+  to     = "/index.html"
   status = 200
 
 [build.environment]
-  NODE_ENV = "development"   # ensures npm includes devDependencies
-  NODE_VERSION = "20"        # stick to current LTS instead of Node 22
+  NODE_ENV    = "development"   # ensures devDeps install on Netlify
+  NODE_VERSION = "20"
