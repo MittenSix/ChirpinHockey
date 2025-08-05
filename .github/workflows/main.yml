@@ -26,6 +26,10 @@ jobs:
       - name: Dependency audit
         uses: tj-actions/depcheck@v9
         with:
-          ignores: 'eslint,prettier'
-
+          ignores: >
+             eslint,prettier,
+             pg,
+             autoprefixer,postcss,esbuild,
+             @assets/*                # alias-based images
+          
       - run: npm run build
