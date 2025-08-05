@@ -1,16 +1,27 @@
 {
   "extends": "../tsconfig.json",
   "compilerOptions": {
-    "module": "NodeNext",
-    "target": "ES2022",
+    /* output —— */
     "outDir": "../dist/functions",
     "rootDir": "../",
+
+    /* module system for Netlify lambdas —— */
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+
+    /* alias for shared code —— */
     "baseUrl": ".",
     "paths": {
       "@shared/*": ["../shared/*"]
     },
+
+    /* turn OFF the flag that caused TS5096 —— */
     "allowImportingTsExtensions": false,
+
+    /* misc —— */
+    "target": "ES2022",
     "skipLibCheck": true
   },
+
   "include": ["../server/**/*.ts", "../shared/**/*.ts"]
 }
