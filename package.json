@@ -10,14 +10,11 @@
 
   "scripts": {
     "dev": "vite --config vite.config.ts",
-
     "build": "npm run build:client && npm run build:functions",
     "build:client": "vite build --config vite.config.ts",
     "build:functions": "npm run tsc:server && npm run copy:functions",
-
     "tsc:server": "tsc -p server/tsconfig.json --outDir dist/functions",
     "copy:functions": "cp -R server/static/* dist/functions || true",
-
     "serve": "npx serve dist/public",
     "lint": "eslint . --ext .ts,.tsx",
     "format": "prettier --write .",
@@ -45,7 +42,7 @@
     "esbuild": "^0.21.4",
     "postcss": "^8.4.34",
     "prettier": "^3.2.5",
-    "tailwindcss": "^3.5.1",
+    "tailwindcss": "^3.4.4",          // ✅ current latest on npm
     "typescript": "^5.3.3"
   }
 }
