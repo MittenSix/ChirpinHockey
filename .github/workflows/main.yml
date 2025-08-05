@@ -1,0 +1,53 @@
+name: CI
+
+# ──────────────────────────────
+#  Run on every push & PR to main
+# ──────────────────────────────
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1️⃣  Pull code
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2️⃣  Install Node 20 and enable npm-cache
+      #     The cache key automatically includes the lockfile’s SHA,
+      #     so whenever package.json or package-lock.json changes the
+      #     cache is busted without manual edits.
+      - name: Set up Node with cache
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: |
+            package-lock.json
+            package.json
+
+      # 3️⃣  Make sure no stale metadata survives an old cache hit
+      - name: Clean npm metadata cache
+        run: npm cache clean --force
+
+      # 4️⃣  Install all deps (generates package-lock.json if missing)
+      - name: Install dependencies
+        run: npm install
+
+      # 5️⃣  depcheck -- catches missing / unused packages
+      - name: Dependency audit
+        uses: tj-actions/depcheck@v9
+        with:
+          ignores: >
+            eslint,prettier,
+            pg,autoprefixer,postcss,esbuild,
+            @assets/*
+
+      # 6️⃣  Build exactly like Netlify does
+      - name: Build project
+        run: npm run build

@@ -1,16 +1,6 @@
 import Airtable from 'airtable';
 import type { InsertWaitlistRegistration, ContactForm } from '@shared/schema';
 
-// Configure Airtable with Personal Access Token
-// Use the new Personal Access Token authentication method
-Airtable.configure({
-  apiKey: process.env.AIRTABLE_API_KEY || 'pat8GgAc4MtddWSWC.113a14efd451f52afdf6a3446c4efe7f886c4afc781a920bf06924eb0319c441'
-});
-
-// Use the correct base ID
-const baseId = 'appyLuiym3lQQD9Im';
-const base = Airtable.base(baseId);
-
 export interface AirtableStorage {
   createWaitlistRegistration(data: InsertWaitlistRegistration): Promise<any>;
   createContactSubmission(data: ContactForm): Promise<any>;

@@ -1,20 +1,42 @@
-# ─────────────────────────────────────────
-#  Netlify configuration for Chirpin
-# ─────────────────────────────────────────
-
 [build]
-  # 1️⃣ Compile React + Tailwind + TypeScript
-  # 2️⃣ Transpile Express API code into Netlify Functions
   command   = "npm run build"
-  publish   = "dist/public"     # static SPA bundle
-  functions = "dist/functions"  # serverless functions output
+  publish   = "dist/public"
+  functions = "dist/functions"
 
 [functions]
-  # Esbuild keeps lambda bundles small and fast
   node_bundler = "esbuild"
 
+[build.environment]
+  NODE_ENV = "development"   # install devDependencies during npm install
+
+# API → Function mappings
 [[redirects]]
-  # SPA fallback so client-side routing works on refresh / deep links
-  from = "/*"
-  to   = "/index.html"
+  from   = "/api/contact"
+  to     = "/.netlify/functions/contact"
+  status = 200
+  force  = true
+
+[[redirects]]
+  from   = "/api/waitlist"
+  to     = "/.netlify/functions/waitlist"
+  status = 200
+  force  = true
+
+[[redirects]]
+  from   = "/api/waitlist/count"
+  to     = "/.netlify/functions/waitlist-count"
+  status = 200
+  force  = true
+
+# (optional) remove or keep as needed
+[[redirects]]
+  from   = "/api/debug/airtable"
+  to     = "/.netlify/functions/debug-airtable"
+  status = 200
+  force  = true
+
+# SPA fallback (keep at bottom)
+[[redirects]]
+  from   = "/*"
+  to     = "/index.html"
   status = 200
