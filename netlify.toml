@@ -1,16 +1,45 @@
+###############################################
+#  Netlify configuration for Chirpin Hockey   #
+###############################################
+
 [build]
+  # 1. Runs your package.json “build” script
   command   = "npm run build"
+
+  # 2. Vite puts the static site here
   publish   = "dist/public"
+
+  # 3. Netlify bundles every file inside this folder as a Function
   functions = "dist/functions"
 
 [functions]
+  # Use esbuild (fast, supports TS)
   node_bundler = "esbuild"
 
+# ─────────────────────────────
+#  ENV available during build
+# ─────────────────────────────
+[build.environment]
+  NODE_VERSION = "20"
+  NODE_ENV     = "production"
+  AIRTABLE_API_KEY  = "${AIRTABLE_API_KEY}"
+  AIRTABLE_BASE_ID  = "${AIRTABLE_BASE_ID}"
+
+# ─────────────────────────────
+#  Redirect front-end POSTs to
+#  the Netlify Function
+# ─────────────────────────────
+[[redirects]]
+  from   = "/api/contact"
+  to     = "/.netlify/functions/contact"
+  status = 200
+  force  = true
+
+# ─────────────────────────────
+#  SPA fallback – send every
+#  unknown route to index.html
+# ─────────────────────────────
 [[redirects]]
   from   = "/*"
   to     = "/index.html"
   status = 200
-
-[build.environment]
-  NODE_ENV    = "development"   # ensures devDeps install on Netlify
-  NODE_VERSION = "20"
