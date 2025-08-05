@@ -10,7 +10,7 @@
     "build": "npm run build:client && npm run copy:functions",
     "build:client": "vite build --config vite.config.ts",
     "build:functions": "npm run copy:functions",
-    "copy:functions": "mkdir -p dist/functions && cp -R server/*.ts dist/functions",
+    "copy:functions": "mkdir -p dist/functions && cp -R server/functions/*.ts dist/functions"
     "serve": "npx serve dist/public",
     "lint": "eslint . --ext .ts,.tsx",
     "format": "prettier --write .",
