@@ -7,10 +7,9 @@
 
   "scripts": {
     "dev": "vite --config vite.config.ts",
-    "build": "npm run build:client && npm run build:functions",
+    "build": "npm run build:client && npm run copy:functions",
     "build:client": "vite build --config vite.config.ts",
-    "build:functions": "npm run tsc:server && npm run copy:functions",
-    "tsc:server": "tsc -p server/tsconfig.json --outDir dist/functions",
+    "build:functions": "npm run copy:functions",
     "copy:functions": "cp -R server/static/* dist/functions || true",
     "serve": "npx serve dist/public",
     "lint": "eslint . --ext .ts,.tsx",
