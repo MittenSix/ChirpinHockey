@@ -6,6 +6,9 @@
 [functions]
   node_bundler = "esbuild"
 
+[build.environment]
+  NODE_ENV = "development"   # install devDependencies during npm install
+
 # API → Function mappings
 [[redirects]]
   from   = "/api/contact"
