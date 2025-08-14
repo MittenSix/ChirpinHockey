@@ -24,6 +24,13 @@ export const insertUserSchema = createInsertSchema(users).pick({
 export const insertWaitlistRegistrationSchema = createInsertSchema(waitlistRegistrations).pick({
   fullName: true,
   email: true,
+}).extend({
+  fullName: z.string().min(1, "Full name is required").trim(),
+  email: z.string()
+    .min(1, "Email address is required")
+    .email("Please enter a valid email address")
+    .trim()
+    .toLowerCase(),
 });
 
 // Contact form schema

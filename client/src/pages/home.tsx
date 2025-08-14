@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQuery } from "@tanstack/react-query";
@@ -10,7 +10,7 @@ import { Input } from "@/components/ui/input";
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { Card, CardContent } from "@/components/ui/card";
 import { ContactModal } from "@/components/ContactModal";
-import { Tv, SearchCheck, MessageCircle, Star, Shield, Clock, CheckCircle, Rocket } from "lucide-react";
+import { Tv, SearchCheck, MessageCircle, Star, Shield, Clock, CheckCircle, Rocket, Mail, AlertCircle } from "lucide-react";
 import chirpinLogo from "@assets/2F716E35-DBBA-4E40-B0B4-E2FD7BE5FEA0_1754346652751.png";
 import gameCenterImage from "@assets/Chirpin_GameCenter_1754403116171.png";
 import gameFinderImage from "@assets/Chripin_GameFinder_1754403116171.png";
@@ -23,6 +23,7 @@ export default function Home() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [selectedImage, setSelectedImage] = useState<{src: string, alt: string} | null>(null);
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
+  const [emailValidationState, setEmailValidationState] = useState<'idle' | 'valid' | 'invalid'>('idle');
 
   const form = useForm<InsertWaitlistRegistration>({
     resolver: zodResolver(insertWaitlistRegistrationSchema),
@@ -30,7 +31,31 @@ export default function Home() {
       fullName: "",
       email: "",
     },
+    mode: "onChange",
   });
+
+  const emailValue = form.watch("email");
+  const fullNameValue = form.watch("fullName");
+
+  // Real-time email validation
+  const validateEmail = (email: string) => {
+    if (!email.trim()) {
+      setEmailValidationState('idle');
+      return;
+    }
+    
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (emailRegex.test(email.trim())) {
+      setEmailValidationState('valid');
+    } else {
+      setEmailValidationState('invalid');
+    }
+  };
+
+  // Watch email changes for real-time validation
+  useEffect(() => {
+    validateEmail(emailValue);
+  }, [emailValue]);
 
 
 
@@ -58,8 +83,30 @@ export default function Home() {
   });
 
   const onSubmit = (data: InsertWaitlistRegistration) => {
+    // Additional validation before submission
+    if (emailValidationState !== 'valid') {
+      toast({
+        title: "Invalid Email",
+        description: "Please enter a valid email address to continue.",
+        variant: "destructive",
+      });
+      return;
+    }
+    
+    if (!data.fullName.trim()) {
+      toast({
+        title: "Name Required",
+        description: "Please enter your full name to continue.",
+        variant: "destructive",
+      });
+      return;
+    }
+
     waitlistMutation.mutate(data);
   };
+
+  // Check if form is valid for submission
+  const isFormValid = emailValidationState === 'valid' && fullNameValue.trim().length > 0;
 
   const scrollToWaitlist = () => {
     document.getElementById("waitlist-form")?.scrollIntoView({ behavior: "smooth" });
@@ -145,22 +192,42 @@ export default function Home() {
                         render={({ field }) => (
                           <FormItem>
                             <FormControl>
-                              <Input
-                                type="email"
-                                placeholder="Email Address"
-                                {...field}
-                                className="bg-white/10 border-white/20 text-white placeholder:text-gray-400 focus:border-chirpin-orange focus:bg-white/20"
-                                data-testid="input-email"
-                              />
+                              <div className="relative">
+                                <Input
+                                  type="email"
+                                  placeholder="Email Address"
+                                  {...field}
+                                  className={`bg-white/10 border-white/20 text-white placeholder:text-gray-400 focus:border-chirpin-orange focus:bg-white/20 pr-10 ${
+                                    emailValidationState === 'valid' ? 'border-green-500/50' : 
+                                    emailValidationState === 'invalid' ? 'border-red-500/50' : ''
+                                  }`}
+                                  data-testid="input-email"
+                                />
+                                {emailValidationState === 'valid' && (
+                                  <CheckCircle className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-green-500" />
+                                )}
+                                {emailValidationState === 'invalid' && (
+                                  <AlertCircle className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-red-500" />
+                                )}
+                                {emailValidationState === 'idle' && emailValue.trim() === '' && (
+                                  <Mail className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                                )}
+                              </div>
                             </FormControl>
-                            <FormMessage />
+                            {emailValidationState === 'invalid' && emailValue.trim() !== '' && (
+                              <p className="text-red-400 text-sm mt-1">Please enter a valid email address</p>
+                            )}
                           </FormItem>
                         )}
                       />
                       <Button
                         type="submit"
-                        disabled={waitlistMutation.isPending}
-                        className="w-full bg-gradient-to-r from-chirpin-orange to-orange-500 hover:from-chirpin-orange/90 hover:to-orange-500/90 text-white font-semibold py-3 transition-all transform hover:scale-105"
+                        disabled={waitlistMutation.isPending || !isFormValid}
+                        className={`w-full font-semibold py-3 transition-all transform ${
+                          isFormValid && !waitlistMutation.isPending
+                            ? 'bg-gradient-to-r from-chirpin-orange to-orange-500 hover:from-chirpin-orange/90 hover:to-orange-500/90 hover:scale-105'
+                            : 'bg-gray-600/50 cursor-not-allowed'
+                        } text-white`}
                         data-testid="button-submit-waitlist"
                       >
                         <Rocket className="mr-2 h-4 w-4" />
@@ -170,9 +237,20 @@ export default function Home() {
                   </Form>
                 )}
                 {!isSubmitted && (
-                  <p className="text-sm text-gray-400 mt-4" data-testid="waitlist-disclaimer">
-                    Be the first to know when Chirpin launches. No spam, ever.
-                  </p>
+                  <div className="mt-4">
+                    <p className="text-sm text-gray-400" data-testid="waitlist-disclaimer">
+                      Be the first to know when Chirpin launches. No spam, ever.
+                    </p>
+                    {(emailValue.trim() !== '' || fullNameValue.trim() !== '') && !isFormValid && (
+                      <p className="text-xs text-yellow-400 mt-2 flex items-center">
+                        <AlertCircle className="h-3 w-3 mr-1" />
+                        {!fullNameValue.trim() && emailValidationState === 'valid' && "Please enter your full name to continue."}
+                        {fullNameValue.trim() && emailValidationState !== 'valid' && emailValue.trim() && "Please enter a valid email address to continue."}
+                        {!fullNameValue.trim() && emailValidationState !== 'valid' && emailValue.trim() && "Please provide a valid email address and your full name."}
+                        {!emailValue.trim() && fullNameValue.trim() && "Please enter your email address to continue."}
+                      </p>
+                    )}
+                  </div>
                 )}
               </CardContent>
             </Card>
