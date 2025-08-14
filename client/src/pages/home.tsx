@@ -10,7 +10,7 @@ import { Input } from "@/components/ui/input";
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { Card, CardContent } from "@/components/ui/card";
 import { ContactModal } from "@/components/ContactModal";
-import { Tv, SearchCheck, MessageCircle, Star, Shield, Clock, CheckCircle, Rocket, Mail, AlertCircle } from "lucide-react";
+import { Tv, SearchCheck, MessageCircle, Star, Shield, Clock, CheckCircle, Rocket, Mail, AlertCircle, Menu, X } from "lucide-react";
 import chirpinLogo from "@assets/2F716E35-DBBA-4E40-B0B4-E2FD7BE5FEA0_1754346652751.png";
 import gameCenterImage from "@assets/Chirpin_GameCenter_1754403116171.png";
 import gameFinderImage from "@assets/Chripin_GameFinder_1754403116171.png";
@@ -24,6 +24,7 @@ export default function Home() {
   const [selectedImage, setSelectedImage] = useState<{src: string, alt: string} | null>(null);
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
   const [emailValidationState, setEmailValidationState] = useState<'idle' | 'valid' | 'invalid'>('idle');
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const form = useForm<InsertWaitlistRegistration>({
     resolver: zodResolver(insertWaitlistRegistrationSchema),
@@ -56,6 +57,20 @@ export default function Home() {
   useEffect(() => {
     validateEmail(emailValue);
   }, [emailValue]);
+
+  // Close mobile menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (isMobileMenuOpen && !(event.target as Element).closest('nav')) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isMobileMenuOpen]);
 
 
 
@@ -123,14 +138,64 @@ export default function Home() {
               <span className="text-xl font-bold" data-testid="logo-text">Chirpin</span>
             </div>
             <div className="hidden md:flex items-center space-x-8">
+              <a href="/game-center" className="text-gray-300 hover:text-white transition-colors" data-testid="nav-game-center">GameCenter</a>
               <a href="#features" className="text-gray-300 hover:text-white transition-colors" data-testid="nav-features">Features</a>
               <a href="#about" className="text-gray-300 hover:text-white transition-colors" data-testid="nav-about">About</a>
               <Button onClick={scrollToWaitlist} className="bg-chirpin-orange hover:bg-chirpin-orange/90" data-testid="nav-waitlist-button">
                 Join Waitlist
               </Button>
             </div>
+            
+            {/* Mobile menu button */}
+            <div className="md:hidden">
+              <button
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                className="text-gray-300 hover:text-white transition-colors"
+                aria-label="Toggle mobile menu"
+              >
+                {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+              </button>
+            </div>
           </div>
         </div>
+        
+        {/* Mobile menu */}
+        {isMobileMenuOpen && (
+          <div className="md:hidden bg-slate-900/95 backdrop-blur-md border-t border-slate-700 animate-in slide-in-from-top duration-200">
+            <div className="px-4 py-4 space-y-4">
+              <a 
+                href="/game-center" 
+                className="block text-gray-300 hover:text-white transition-colors py-2"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                GameCenter
+              </a>
+              <a 
+                href="#features" 
+                className="block text-gray-300 hover:text-white transition-colors py-2"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Features
+              </a>
+              <a 
+                href="#about" 
+                className="block text-gray-300 hover:text-white transition-colors py-2"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                About
+              </a>
+              <Button 
+                onClick={() => {
+                  scrollToWaitlist();
+                  setIsMobileMenuOpen(false);
+                }} 
+                className="w-full bg-chirpin-orange hover:bg-chirpin-orange/90 mt-4"
+              >
+                Join Waitlist
+              </Button>
+            </div>
+          </div>
+        )}
       </nav>
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 pt-16">
