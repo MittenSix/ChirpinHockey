@@ -31,6 +31,7 @@ export default function Home() {
     defaultValues: {
       fullName: "",
       email: "",
+      persona: "general",
     },
     mode: "onChange",
   });

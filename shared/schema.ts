@@ -13,6 +13,7 @@ export const waitlistRegistrations = pgTable("waitlist_registrations", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
   fullName: text("full_name").notNull(),
   email: text("email").notNull().unique(),
+  persona: text("persona").notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
@@ -24,6 +25,7 @@ export const insertUserSchema = createInsertSchema(users).pick({
 export const insertWaitlistRegistrationSchema = createInsertSchema(waitlistRegistrations).pick({
   fullName: true,
   email: true,
+  persona: true,
 }).extend({
   fullName: z.string().min(1, "Full name is required").trim(),
   email: z.string()
@@ -31,6 +33,7 @@ export const insertWaitlistRegistrationSchema = createInsertSchema(waitlistRegis
     .email("Please enter a valid email address")
     .trim()
     .toLowerCase(),
+  persona: z.string().min(1, "Persona is required"),
 });
 
 // Contact form schema

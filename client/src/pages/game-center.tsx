@@ -28,6 +28,7 @@ export default function GameCenter() {
     defaultValues: {
       fullName: "",
       email: "",
+      persona: "parent",
     },
     mode: "onChange",
   });

@@ -14,7 +14,7 @@ export const handler: Handler = async (event) => {
     const data = insertWaitlistRegistrationSchema.parse(JSON.parse(event.body ?? '{}'));
 
     const [record] = await base('Waitlist').create([
-      { fields: { 'Full Name': data.fullName, Email: data.email } }
+      { fields: { 'Full Name': data.fullName, Email: data.email, Persona: data.persona } }
     ]);
 
     return { statusCode: 200, body: JSON.stringify({ id: record.id }) };
