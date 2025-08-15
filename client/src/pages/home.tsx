@@ -280,20 +280,13 @@ export default function Home() {
                                 )}
                               </div>
                             </FormControl>
-                            {emailValidationState === 'invalid' && emailValue.trim() !== '' && (
-                              <p className="text-red-400 text-sm mt-1">Please enter a valid email address</p>
-                            )}
                           </FormItem>
                         )}
                       />
                       <Button
                         type="submit"
                         disabled={waitlistMutation.isPending || !isFormValid}
-                        className={`w-full font-semibold py-3 transition-all transform ${
-                          isFormValid && !waitlistMutation.isPending
-                            ? 'bg-gradient-to-r from-chirpin-orange to-orange-500 hover:from-chirpin-orange/90 hover:to-orange-500/90 hover:scale-105'
-                            : 'bg-gray-600/50 cursor-not-allowed'
-                        } text-white`}
+                        className="w-full font-semibold py-3 transition-all transform bg-chirpin-orange hover:bg-chirpin-orange/90 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none text-white"
                         data-testid="button-submit-waitlist"
                       >
                         <Rocket className="mr-2 h-4 w-4" />
@@ -557,7 +550,7 @@ export default function Home() {
           </p>
           <Button 
             onClick={scrollToWaitlist}
-            className="bg-gradient-to-r from-chirpin-orange to-orange-500 hover:from-chirpin-orange/90 hover:to-orange-500/90 text-white font-semibold py-4 px-8 text-lg transition-all transform hover:scale-105"
+            className="bg-chirpin-orange hover:bg-chirpin-orange/90 text-white font-semibold py-4 px-8 text-lg transition-all transform hover:scale-105"
             data-testid="button-cta-waitlist"
           >
             <Rocket className="mr-3 h-5 w-5" />

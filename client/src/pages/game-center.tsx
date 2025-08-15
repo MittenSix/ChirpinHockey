@@ -215,7 +215,7 @@ export default function GameCenter() {
               <span className="text-chirpin-orange drop-shadow-lg"> Game Moment</span>
             </h1>
             <p className="text-xl sm:text-2xl text-gray-100 mb-8 max-w-4xl mx-auto leading-relaxed" data-testid="hero-subtitle">
-              Real-time scoreboards, game notifications, and stats tracking. Share every play with friends and families instantly.
+              Real-time scoreboards, game notifications, and stats tracking. Follow friends, teams, and players you've met at tournaments. Share every play with friends and families instantly.
             </p>
           </div>
 
@@ -280,20 +280,13 @@ export default function GameCenter() {
                                 </div>
                               </div>
                             </FormControl>
-                                {emailValidationState === 'invalid' && emailValue.trim() !== '' && (
-                                  <p className="text-red-400 text-sm mt-1">Please enter a valid email address</p>
-                                )}
                           </FormItem>
                         )}
                       />
                       <Button
                         type="submit"
                         disabled={!isFormValid || waitlistMutation.isPending}
-                        className={`w-full py-3 text-lg font-semibold transition-all duration-300 ${
-                          isFormValid
-                            ? "bg-chirpin-orange hover:bg-chirpin-orange/90 transform hover:scale-105"
-                            : "bg-gray-600 cursor-not-allowed opacity-50"
-                        }`}
+                        className="w-full py-3 text-lg font-semibold transition-all duration-300 bg-chirpin-orange hover:bg-chirpin-orange/90 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
                         data-testid="submit-button"
                       >
                         {waitlistMutation.isPending ? (
