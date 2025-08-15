@@ -10,11 +10,12 @@ import { Input } from "@/components/ui/input";
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { Card, CardContent } from "@/components/ui/card";
 import { ContactModal } from "@/components/ContactModal";
-import { Tv, SearchCheck, MessageCircle, Star, Shield, Clock, CheckCircle, Rocket, Mail, AlertCircle, Bell, BarChart3, Share2, Trophy, Users, ChevronDown, Menu, X } from "lucide-react";
+import { Tv, SearchCheck, MessageCircle, Star, Shield, Clock, CheckCircle, Rocket, Mail, AlertCircle, Bell, BarChart3, Share2, Trophy, Users, Menu, X } from "lucide-react";
 import chirpinLogo from "@assets/2F716E35-DBBA-4E40-B0B4-E2FD7BE5FEA0_1754346652751.png";
 import gameCenterImage from "@assets/Chirpin_GameCenter_1754403116171.png";
 import fromThisVideo from "@assets/From this.mp4";
 import toThisVideo from "@assets/To this.mp4";
+import followImage from "@assets/Follow.png";
 
 export default function GameCenter() {
   const { toast } = useToast();
@@ -123,9 +124,6 @@ export default function GameCenter() {
     document.getElementById("waitlist-form")?.scrollIntoView({ behavior: "smooth" });
   };
 
-  const scrollToVideoSection = () => {
-    document.getElementById("video-comparison")?.scrollIntoView({ behavior: "smooth" });
-  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-chirpin-navy text-white overflow-x-hidden">
@@ -217,7 +215,7 @@ export default function GameCenter() {
               <span className="text-chirpin-orange drop-shadow-lg"> Game Moment</span>
             </h1>
             <p className="text-xl sm:text-2xl text-gray-100 mb-8 max-w-4xl mx-auto leading-relaxed" data-testid="hero-subtitle">
-              Real-time scoreboards, game notifications, and stats tracking. Share every play with family members instantly.
+              Real-time scoreboards, game notifications, and stats tracking. Share every play with friends and families instantly.
             </p>
           </div>
 
@@ -326,21 +324,6 @@ export default function GameCenter() {
             </Card>
           </div>
 
-          {/* Scroll Indicator */}
-          <div className="absolute bottom-6 sm:bottom-8 left-1/2 transform -translate-x-1/2 animate-smooth-bounce">
-            <button
-              onClick={scrollToVideoSection}
-              className="flex flex-col items-center text-white/70 hover:text-white transition-colors duration-300 group touch-manipulation"
-              aria-label="Scroll to see more content"
-            >
-              <span className="text-xs sm:text-sm mb-1 sm:mb-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 hidden sm:block">
-                See how we solve this
-              </span>
-              <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-full border-2 border-white/30 flex items-center justify-center group-hover:border-chirpin-orange/50 transition-colors duration-300 bg-black/20">
-                <ChevronDown className="h-5 w-5 sm:h-6 sm:w-6 animate-gentle-pulse" />
-              </div>
-            </button>
-          </div>
         </div>
       </section>
 
@@ -355,7 +338,7 @@ export default function GameCenter() {
               <span className="text-chirpin-orange">Clarity</span>
             </h2>
             <p className="text-lg sm:text-xl text-gray-100 max-w-3xl mx-auto">
-              See the difference GameCenter makes for hockey families
+              See the difference GameCenter makes for the hockey community
             </p>
           </div>
 
@@ -370,7 +353,7 @@ export default function GameCenter() {
                     loop
                     muted
                     playsInline
-                    className="w-full h-auto rounded-lg"
+                    className="w-full max-w-md h-auto rounded-lg mx-auto"
                     data-testid="from-this-video"
                   >
                     <source src={fromThisVideo} type="video/mp4" />
@@ -379,7 +362,7 @@ export default function GameCenter() {
                 </CardContent>
               </Card>
               <p className="text-sm sm:text-base text-gray-100 mt-3 sm:mt-4">
-                Scattered messages, missed updates, confused family members
+                Scattered messages, missed updates, confused families
               </p>
             </div>
 
@@ -393,7 +376,7 @@ export default function GameCenter() {
                     loop
                     muted
                     playsInline
-                    className="w-full h-auto rounded-lg"
+                    className="w-full max-w-md h-auto rounded-lg mx-auto"
                     data-testid="to-this-video"
                   >
                     <source src={toThisVideo} type="video/mp4" />
@@ -409,6 +392,53 @@ export default function GameCenter() {
         </div>
       </section>
 
+      {/* Follow Feature Section */}
+      <section className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 bg-slate-800/30">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <h2 className="text-4xl sm:text-5xl font-bold mb-6">
+                Follow Your
+                <span className="text-chirpin-orange"> Hockey Network</span>
+              </h2>
+              <p className="text-xl text-gray-100 mb-8">
+                Discover and follow teams and players across the country. Stay connected with friends from tournaments, teammates who've moved, and rising stars in the hockey community.
+              </p>
+              <div className="space-y-4">
+                <div className="flex items-start space-x-3">
+                  <div className="w-2 h-2 bg-chirpin-orange rounded-full mt-2 flex-shrink-0"></div>
+                  <p className="text-gray-100">Find and follow teams from tournaments and showcases</p>
+                </div>
+                <div className="flex items-start space-x-3">
+                  <div className="w-2 h-2 bg-chirpin-orange rounded-full mt-2 flex-shrink-0"></div>
+                  <p className="text-gray-100">Keep track of friends who've moved to different teams</p>
+                </div>
+                <div className="flex items-start space-x-3">
+                  <div className="w-2 h-2 bg-chirpin-orange rounded-full mt-2 flex-shrink-0"></div>
+                  <p className="text-gray-100">Get notified when followed players score or make plays</p>
+                </div>
+                <div className="flex items-start space-x-3">
+                  <div className="w-2 h-2 bg-chirpin-orange rounded-full mt-2 flex-shrink-0"></div>
+                  <p className="text-gray-100">Build your hockey network nationwide</p>
+                </div>
+              </div>
+            </div>
+            <div className="flex justify-center">
+              <Card className="glass-card overflow-hidden max-w-md">
+                <CardContent className="p-0">
+                  <img 
+                    src={followImage} 
+                    alt="Follow teams and players interface showing how to discover and connect with your hockey network" 
+                    className="w-full h-auto rounded-lg"
+                    data-testid="follow-feature-image"
+                  />
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Features Section */}
       <section id="features" className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
@@ -418,7 +448,7 @@ export default function GameCenter() {
               <span className="text-chirpin-orange"> Track the Game</span>
             </h2>
             <p className="text-xl text-gray-100 max-w-3xl mx-auto">
-              Stop searching through team chats for scores. Get everything you need in one place.
+              Stop searching through multiple chats for scores. Connect with your hockey network nationwide.
             </p>
           </div>
 
@@ -468,32 +498,32 @@ export default function GameCenter() {
               </CardContent>
             </Card>
 
-            {/* Family Sharing */}
+            {/* Community Sharing */}
             <Card className="glass-card hover:scale-105 transition-transform duration-300">
               <CardContent className="p-6">
                 <div className="flex items-center mb-4">
                   <div className="p-3 bg-chirpin-orange/20 rounded-lg mr-4">
                     <Share2 className="h-8 w-8 text-chirpin-orange" />
                   </div>
-                  <h3 className="text-xl font-semibold">Family Sharing</h3>
+                  <h3 className="text-xl font-semibold">Community Sharing</h3>
                 </div>
                 <p className="text-gray-100">
-                  Share game highlights and stats with family members instantly. Keep everyone in the loop.
+                  Share game highlights and stats with friends, teammates, and families instantly. Keep your hockey network connected.
                 </p>
               </CardContent>
             </Card>
 
-            {/* Team Management */}
+            {/* Friend Following */}
             <Card className="glass-card hover:scale-105 transition-transform duration-300">
               <CardContent className="p-6">
                 <div className="flex items-center mb-4">
                   <div className="p-3 bg-chirpin-orange/20 rounded-lg mr-4">
                     <Users className="h-8 w-8 text-chirpin-orange" />
                   </div>
-                  <h3 className="text-xl font-semibold">Team Management</h3>
+                  <h3 className="text-xl font-semibold">Follow Friends</h3>
                 </div>
                 <p className="text-gray-100">
-                  Manage your team roster, schedules, and communication all in one place.
+                  Follow friends and teammates across the country. Stay connected with your hockey network no matter where they play.
                 </p>
               </CardContent>
             </Card>
@@ -536,7 +566,7 @@ export default function GameCenter() {
                 </div>
                 <div className="flex items-start space-x-3">
                   <div className="w-2 h-2 bg-red-400 rounded-full mt-2 flex-shrink-0"></div>
-                  <p className="text-gray-100">Family members asking "What's the score?" during games</p>
+                  <p className="text-gray-100">Friends and families asking "What's the score?" during games</p>
                 </div>
                 <div className="flex items-start space-x-3">
                   <div className="w-2 h-2 bg-red-400 rounded-full mt-2 flex-shrink-0"></div>
@@ -560,7 +590,7 @@ export default function GameCenter() {
                 </div>
                 <div className="flex items-start space-x-3">
                   <div className="w-2 h-2 bg-chirpin-orange rounded-full mt-2 flex-shrink-0"></div>
-                  <p className="text-gray-100">Easy sharing with family members</p>
+                  <p className="text-gray-100">Easy sharing with friends and families nationwide</p>
                 </div>
                 <div className="flex items-start space-x-3">
                   <div className="w-2 h-2 bg-chirpin-orange rounded-full mt-2 flex-shrink-0"></div>
@@ -591,12 +621,12 @@ export default function GameCenter() {
       {/* Footer */}
       <footer className="py-12 px-4 sm:px-6 lg:px-8 border-t border-slate-700">
         <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <div className="flex items-center space-x-2 mb-4 md:mb-0">
+          <div className="flex flex-col items-center justify-center space-y-4">
+            <div className="flex items-center space-x-2">
               <img src={chirpinLogo} alt="Chirpin" className="h-8 w-8 rounded-lg" />
               <span className="text-xl font-bold">Chirpin</span>
             </div>
-            <div className="flex space-x-6">
+            <div className="flex justify-center space-x-6">
               <a href="/" className="text-gray-100 hover:text-white transition-colors">Home</a>
               <a href="/privacy" className="text-gray-100 hover:text-white transition-colors">Privacy</a>
               <button
