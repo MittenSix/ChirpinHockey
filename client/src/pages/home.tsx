@@ -139,7 +139,7 @@ export default function Home() {
               <span className="text-xl font-bold" data-testid="logo-text">Chirpin</span>
             </div>
             <div className="hidden md:flex items-center space-x-8">
-              <a href="/game-center" className="text-gray-300 hover:text-white transition-colors" data-testid="nav-game-center">GameCenter</a>
+              <a href="/GameCenter" className="text-gray-300 hover:text-white transition-colors" data-testid="nav-game-center">GameCenter</a>
               <a href="#features" className="text-gray-300 hover:text-white transition-colors" data-testid="nav-features">Features</a>
               <a href="#about" className="text-gray-300 hover:text-white transition-colors" data-testid="nav-about">About</a>
               <Button onClick={scrollToWaitlist} className="bg-chirpin-orange hover:bg-chirpin-orange/90" data-testid="nav-waitlist-button">
@@ -165,7 +165,7 @@ export default function Home() {
           <div className="md:hidden bg-slate-900/95 backdrop-blur-md border-t border-slate-700 animate-in slide-in-from-top duration-200">
             <div className="px-4 py-4 space-y-4">
               <a 
-                href="/game-center" 
+                href="/GameCenter" 
                 className="block text-gray-300 hover:text-white transition-colors py-2"
                 onClick={() => setIsMobileMenuOpen(false)}
               >

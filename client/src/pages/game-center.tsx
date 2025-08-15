@@ -137,7 +137,7 @@ export default function GameCenter() {
             </div>
             <div className="hidden md:flex items-center space-x-8">
               <a href="/" className="text-gray-300 hover:text-white transition-colors" data-testid="nav-home">Home</a>
-              <a href="/game-center" className="text-gray-300 hover:text-white transition-colors" data-testid="nav-game-center">GameCenter</a>
+              <a href="/GameCenter" className="text-gray-300 hover:text-white transition-colors" data-testid="nav-game-center">GameCenter</a>
               <a href="#features" className="text-gray-300 hover:text-white transition-colors" data-testid="nav-features">Features</a>
               <Button onClick={scrollToWaitlist} className="bg-chirpin-orange hover:bg-chirpin-orange/90" data-testid="nav-waitlist-button">
                 Get Early Access
@@ -169,7 +169,7 @@ export default function GameCenter() {
                 Home
               </a>
               <a 
-                href="/game-center" 
+                href="/GameCenter" 
                 className="block text-gray-300 hover:text-white transition-colors py-2"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
