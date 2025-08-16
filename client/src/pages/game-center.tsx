@@ -14,8 +14,9 @@ import { Tv, SearchCheck, MessageCircle, Star, Shield, Clock, CheckCircle, Rocke
 import chirpinLogo from "@assets/2F716E35-DBBA-4E40-B0B4-E2FD7BE5FEA0_1754346652751.png";
 import gameCenterImage from "@assets/Chirpin_GameCenter_1754403116171.png";
 import fromThisVideo from "@assets/From this.mp4";
-import toThisVideo from "@assets/To this.mp4";
-import followImage from "@assets/Follow.png";
+import toThisVideo from "@assets/To-this-2.mp4";
+import followVideo from "@assets/Follow-Orange.mp4";
+import gameFeedVideo from "@assets/Game Feed.mp4";
 
 export default function GameCenter() {
   const { toast } = useToast();
@@ -419,14 +420,71 @@ export default function GameCenter() {
             <div className="flex justify-center">
               <Card className="glass-card overflow-hidden max-w-md">
                 <CardContent className="p-0">
-                  <img 
-                    src={followImage} 
-                    alt="Follow teams and players interface showing how to discover and connect with your hockey network" 
+                  <video
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
                     className="w-full h-auto rounded-lg"
-                    data-testid="follow-feature-image"
-                  />
+                    data-testid="follow-feature-video"
+                  >
+                    <source src={followVideo} type="video/mp4" />
+                    Your browser does not support the video tag.
+                  </video>
                 </CardContent>
               </Card>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Game Feed Feature Section */}
+      <section className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div className="flex justify-center order-2 lg:order-1">
+              <Card className="glass-card overflow-hidden max-w-md">
+                <CardContent className="p-0">
+                  <video
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    className="w-full h-auto rounded-lg"
+                    data-testid="game-feed-video"
+                  >
+                    <source src={gameFeedVideo} type="video/mp4" />
+                    Your browser does not support the video tag.
+                  </video>
+                </CardContent>
+              </Card>
+            </div>
+            <div className="order-1 lg:order-2">
+              <h2 className="text-4xl sm:text-5xl font-bold mb-6">
+                Live
+                <span className="text-chirpin-orange"> Game Feed</span>
+              </h2>
+              <p className="text-xl text-gray-100 mb-8">
+                Stay connected with real-time updates from all your followed games. See goals, saves, penalties, and key plays as they happen across your entire hockey network.
+              </p>
+              <div className="space-y-4">
+                <div className="flex items-start space-x-3">
+                  <div className="w-2 h-2 bg-chirpin-orange rounded-full mt-2 flex-shrink-0"></div>
+                  <p className="text-gray-100">Live updates from all followed teams and players</p>
+                </div>
+                <div className="flex items-start space-x-3">
+                  <div className="w-2 h-2 bg-chirpin-orange rounded-full mt-2 flex-shrink-0"></div>
+                  <p className="text-gray-100">Real-time scores, goals, and game events</p>
+                </div>
+                <div className="flex items-start space-x-3">
+                  <div className="w-2 h-2 bg-chirpin-orange rounded-full mt-2 flex-shrink-0"></div>
+                  <p className="text-gray-100">Never miss a moment from your hockey network</p>
+                </div>
+                <div className="flex items-start space-x-3">
+                  <div className="w-2 h-2 bg-chirpin-orange rounded-full mt-2 flex-shrink-0"></div>
+                  <p className="text-gray-100">Personalized feed based on your connections</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
